@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Now</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <img id="background-image" src="{{ background_url }}" alt="background">
+
+    <div class="weather-container">
+        <h1>🌤️ Weather Now</h1>
+        <form method="POST">
+            <input type="text" name="city" placeholder="Enter city name" required>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if weather %}
+            {% if weather.error %}
+                <p class="error">{{ weather.error }}</p>
+            {% else %}
+                <div class="weather-result">
+                    <h2>{{ weather.city }}</h2>
+                    <img src="https://openweathermap.org/img/wn/{{ weather.icon }}@4x.png" alt="Weather Icon">
+                    <h3>{{ weather.temperature }}°C</h3>
+                    <p>{{ weather.description.title() }}</p>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
